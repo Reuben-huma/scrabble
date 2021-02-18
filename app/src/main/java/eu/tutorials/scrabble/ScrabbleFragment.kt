@@ -1,9 +1,11 @@
 package eu.tutorials.scrabble
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import eu.tutorials.scrabble.databinding.FragmentScrabbleBinding
@@ -19,6 +21,7 @@ class ScrabbleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentScrabbleBinding.inflate(inflater, container, false)
+        Log.d("ScrabbleFragment", "ScrabbleFragment created/re-created!")
         return binding.root
     }
 
@@ -33,8 +36,10 @@ class ScrabbleFragment : Fragment() {
     }
 
     fun onSkip() {
-        viewModel.nextWord()
         setError(false)
+        if(!viewModel.nextWord()) {
+            Toast.makeText(requireContext(), "Game completed", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun onSubmit() {
@@ -50,5 +55,10 @@ class ScrabbleFragment : Fragment() {
             binding.textInputLayout.isErrorEnabled = false
             binding.textInputEditText.text = null
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("ScrabbleFragment", "ScrabbleFragment destroyed!")
     }
 }
