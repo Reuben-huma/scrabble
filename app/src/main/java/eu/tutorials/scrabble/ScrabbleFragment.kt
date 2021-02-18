@@ -5,9 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import eu.tutorials.scrabble.databinding.FragmentScrabbleBinding
 import eu.tutorials.scrabble.model.ScrabbleViewModel
 
@@ -38,7 +39,13 @@ class ScrabbleFragment : Fragment() {
     fun onSkip() {
         setError(false)
         if(!viewModel.nextWord()) {
-            Toast.makeText(requireContext(), "Game completed", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Game over")
+                .setMessage("Congratulations. You scored ${viewModel.score.value} out of 10.")
+                .setNegativeButton(R.string.results) { _, _ -> findNavController().navigate(R.id.action_scrabbleFragment_to_resultsFragment) }
+                .setPositiveButton(R.string.play_again) { _, _ -> viewModel.reset() }
+                .setCancelable(false)
+                .show()
         }
     }
 

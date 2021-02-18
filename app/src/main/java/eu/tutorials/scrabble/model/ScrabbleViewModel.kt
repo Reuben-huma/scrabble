@@ -24,6 +24,12 @@ class ScrabbleViewModel() : ViewModel() {
         nextWord()
     }
 
+    fun reset() {
+        _numOfWord.value = 0
+        _score.value = 0
+        nextWord()
+    }
+
     fun nextWord() : Boolean {
         if(numOfWord.value!! <= 9) {
             _numOfWord.value = numOfWord.value?.inc()
@@ -53,4 +59,6 @@ class ScrabbleViewModel() : ViewModel() {
         super.onCleared()
         Log.d("ScrabbleFragment", "ScrabbleViewModel destroyed!")
     }
+
+
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/scrabbleFragment">
+
+    <fragment
+        android:id="@+id/scrabbleFragment"
+        android:name="eu.tutorials.scrabble.ScrabbleFragment"
+        android:label="Scrabble"
+        tools:layout="@layout/fragment_scrabble">
+        <action
+            android:id="@+id/action_scrabbleFragment_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="eu.tutorials.scrabble.ResultsFragment"
+        android:label="Results"
+        tools:layout="@layout/fragment_results">
+        <action
+            android:id="@+id/action_resultsFragment_to_scrabbleFragment"
+            app:destination="@id/scrabbleFragment"
+            app:popUpTo="@id/scrabbleFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
